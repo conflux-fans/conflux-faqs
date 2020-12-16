@@ -14,4 +14,4 @@
 #### Community 
 
 * mainnet: http://mainnet.cfxchain.xyz:12537
-* testnet: http://testnet.cfxchain.xyz:12537
+* testnet: http://testnet.cfxchain.xyz:12537/rpc/  (notice the final slash)
