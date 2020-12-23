@@ -201,8 +201,8 @@ https://forum.conflux.fun/t/topic/4280
 
 ##### 55. conflux系统中计量单位及单位转换关系？
 conflux 最小单位是 drip
-1cfx = 10^18 drip
-1gdrip = 10^9 drip
+- 1cfx = 10^18 drip
+- 1gdrip = 10^9 drip
 
 ##### 56. estimateGasAndColletral报错“Can not estimate: transaction execution failed, all gas will be charged (execution error: VmError(BadInstruction { instruction: 169 }))”
 原因：部署合约时构造函数无效；通常是在调用合约忘记写to地址导致的
