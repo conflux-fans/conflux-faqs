@@ -1,3 +1,69 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [社区FAQ](#%E7%A4%BE%E5%8C%BAfaq)
+        - [1. 普通交易的storageLimit，epochHeight 这2个字段需要关注吗？](#1-%E6%99%AE%E9%80%9A%E4%BA%A4%E6%98%93%E7%9A%84storagelimitepochheight-%E8%BF%992%E4%B8%AA%E5%AD%97%E6%AE%B5%E9%9C%80%E8%A6%81%E5%85%B3%E6%B3%A8%E5%90%97)
+        - [2. 我要一次发多笔交易，但是现在没有设置nonce的方法，这种情况怎么解决呢？](#2-%E6%88%91%E8%A6%81%E4%B8%80%E6%AC%A1%E5%8F%91%E5%A4%9A%E7%AC%94%E4%BA%A4%E6%98%93%E4%BD%86%E6%98%AF%E7%8E%B0%E5%9C%A8%E6%B2%A1%E6%9C%89%E8%AE%BE%E7%BD%AEnonce%E7%9A%84%E6%96%B9%E6%B3%95%E8%BF%99%E7%A7%8D%E6%83%85%E5%86%B5%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%91%A2)
+        - [3. 0x1323ff37de4d4aa270a609dec4eef0595e7386b2在portal上导出私钥，再将其用importKey生成keystore文件，然后在节点导入keystore文件，结果地址变成了0xe323ff37de4d4aa270a609dec4eef0595e7386b2,签名的时候不影响吗？](#3-0x1323ff37de4d4aa270a609dec4eef0595e7386b2%E5%9C%A8portal%E4%B8%8A%E5%AF%BC%E5%87%BA%E7%A7%81%E9%92%A5%E5%86%8D%E5%B0%86%E5%85%B6%E7%94%A8importkey%E7%94%9F%E6%88%90keystore%E6%96%87%E4%BB%B6%E7%84%B6%E5%90%8E%E5%9C%A8%E8%8A%82%E7%82%B9%E5%AF%BC%E5%85%A5keystore%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%9C%E5%9C%B0%E5%9D%80%E5%8F%98%E6%88%90%E4%BA%860xe323ff37de4d4aa270a609dec4eef0595e7386b2%E7%AD%BE%E5%90%8D%E7%9A%84%E6%97%B6%E5%80%99%E4%B8%8D%E5%BD%B1%E5%93%8D%E5%90%97)
+        - [4. 发送交易返回错误 ExceedStorageLimit 什么意思?](#4-%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93%E8%BF%94%E5%9B%9E%E9%94%99%E8%AF%AF-exceedstoragelimit-%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D)
+        - [5. 怎么把私钥，转换成keystore形式？](#5-%E6%80%8E%E4%B9%88%E6%8A%8A%E7%A7%81%E9%92%A5%E8%BD%AC%E6%8D%A2%E6%88%90keystore%E5%BD%A2%E5%BC%8F)
+        - [6. infura测试网url：](#6-infura%E6%B5%8B%E8%AF%95%E7%BD%91url)
+        - [7. 为什么节点改了配置，又要重新同步数据呢？](#7-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%8A%82%E7%82%B9%E6%94%B9%E4%BA%86%E9%85%8D%E7%BD%AE%E5%8F%88%E8%A6%81%E9%87%8D%E6%96%B0%E5%90%8C%E6%AD%A5%E6%95%B0%E6%8D%AE%E5%91%A2)
+        - [8. sponsor代付功能在测试链上可以正常测试么？](#8-sponsor%E4%BB%A3%E4%BB%98%E5%8A%9F%E8%83%BD%E5%9C%A8%E6%B5%8B%E8%AF%95%E9%93%BE%E4%B8%8A%E5%8F%AF%E4%BB%A5%E6%AD%A3%E5%B8%B8%E6%B5%8B%E8%AF%95%E4%B9%88)
+        - [9. CFX是erc777合约吗？](#9-cfx%E6%98%AFerc777%E5%90%88%E7%BA%A6%E5%90%97)
+        - [10. Conflux支持openzepplin这个以太坊库吗？](#10-conflux%E6%94%AF%E6%8C%81openzepplin%E8%BF%99%E4%B8%AA%E4%BB%A5%E5%A4%AA%E5%9D%8A%E5%BA%93%E5%90%97)
+        - [11. 谷歌插件钱包protal在哪里下载？](#11-%E8%B0%B7%E6%AD%8C%E6%8F%92%E4%BB%B6%E9%92%B1%E5%8C%85protal%E5%9C%A8%E5%93%AA%E9%87%8C%E4%B8%8B%E8%BD%BD)
+        - [12. 测试网水龙头在哪里？](#12-%E6%B5%8B%E8%AF%95%E7%BD%91%E6%B0%B4%E9%BE%99%E5%A4%B4%E5%9C%A8%E5%93%AA%E9%87%8C)
+        - [13. 我在用 latest_confirmed 获取epoch的时候 为什么有时候会出现下一个的值比上一次获取到的还要小？](#13-%E6%88%91%E5%9C%A8%E7%94%A8-latest_confirmed-%E8%8E%B7%E5%8F%96epoch%E7%9A%84%E6%97%B6%E5%80%99-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E5%87%BA%E7%8E%B0%E4%B8%8B%E4%B8%80%E4%B8%AA%E7%9A%84%E5%80%BC%E6%AF%94%E4%B8%8A%E4%B8%80%E6%AC%A1%E8%8E%B7%E5%8F%96%E5%88%B0%E7%9A%84%E8%BF%98%E8%A6%81%E5%B0%8F)
+        - [14. 一笔交易的状态待打包，已执行，这些状态是通过什么来确认的？](#14-%E4%B8%80%E7%AC%94%E4%BA%A4%E6%98%93%E7%9A%84%E7%8A%B6%E6%80%81%E5%BE%85%E6%89%93%E5%8C%85%E5%B7%B2%E6%89%A7%E8%A1%8C%E8%BF%99%E4%BA%9B%E7%8A%B6%E6%80%81%E6%98%AF%E9%80%9A%E8%BF%87%E4%BB%80%E4%B9%88%E6%9D%A5%E7%A1%AE%E8%AE%A4%E7%9A%84)
+        - [15. 开发者启动节点需要设置的地方：](#15-%E5%BC%80%E5%8F%91%E8%80%85%E5%90%AF%E5%8A%A8%E8%8A%82%E7%82%B9%E9%9C%80%E8%A6%81%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%9C%B0%E6%96%B9)
+        - [16. cfx有查询算力的api吗？](#16-cfx%E6%9C%89%E6%9F%A5%E8%AF%A2%E7%AE%97%E5%8A%9B%E7%9A%84api%E5%90%97)
+        - [17. 如何判断发生了pivot chain switch？](#17-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%8F%91%E7%94%9F%E4%BA%86pivot-chain-switch)
+        - [18. 存储抵押费是什么，怎么计算？ 比如1kb存储需要多少drip？](#18-%E5%AD%98%E5%82%A8%E6%8A%B5%E6%8A%BC%E8%B4%B9%E6%98%AF%E4%BB%80%E4%B9%88%E6%80%8E%E4%B9%88%E8%AE%A1%E7%AE%97-%E6%AF%94%E5%A6%821kb%E5%AD%98%E5%82%A8%E9%9C%80%E8%A6%81%E5%A4%9A%E5%B0%91drip)
+        - [19. cfx_getTransactionReceipt返回的GasFee都包含哪些费用，包含存储抵押费用吗？](#19-cfx_gettransactionreceipt%E8%BF%94%E5%9B%9E%E7%9A%84gasfee%E9%83%BD%E5%8C%85%E5%90%AB%E5%93%AA%E4%BA%9B%E8%B4%B9%E7%94%A8%E5%8C%85%E5%90%AB%E5%AD%98%E5%82%A8%E6%8A%B5%E6%8A%BC%E8%B4%B9%E7%94%A8%E5%90%97)
+        - [20. 一个block中的transaction，如果其 blockHash 和 status 都是 null 的 是不是代表已经在其他的块里面处理了？](#20-%E4%B8%80%E4%B8%AAblock%E4%B8%AD%E7%9A%84transaction%E5%A6%82%E6%9E%9C%E5%85%B6-blockhash-%E5%92%8C-status-%E9%83%BD%E6%98%AF-null-%E7%9A%84-%E6%98%AF%E4%B8%8D%E6%98%AF%E4%BB%A3%E8%A1%A8%E5%B7%B2%E7%BB%8F%E5%9C%A8%E5%85%B6%E4%BB%96%E7%9A%84%E5%9D%97%E9%87%8C%E9%9D%A2%E5%A4%84%E7%90%86%E4%BA%86)
+        - [21. epoch 会不会出现没有block的情况？](#21-epoch-%E4%BC%9A%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E6%B2%A1%E6%9C%89block%E7%9A%84%E6%83%85%E5%86%B5)
+        - [22. js-conflux-sdk如何decode function data？](#22-js-conflux-sdk%E5%A6%82%E4%BD%95decode-function-data)
+        - [23. 已经部署的合约可以替换吗？不产生新的合约](#23-%E5%B7%B2%E7%BB%8F%E9%83%A8%E7%BD%B2%E7%9A%84%E5%90%88%E7%BA%A6%E5%8F%AF%E4%BB%A5%E6%9B%BF%E6%8D%A2%E5%90%97%E4%B8%8D%E4%BA%A7%E7%94%9F%E6%96%B0%E7%9A%84%E5%90%88%E7%BA%A6)
+        - [24. android和ios有对应的sdk吗？](#24-android%E5%92%8Cios%E6%9C%89%E5%AF%B9%E5%BA%94%E7%9A%84sdk%E5%90%97)
+        - [25. conflux sdk有哪些版本？](#25-conflux-sdk%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%88%E6%9C%AC)
+        - [26. block中的nonce跟transaction中的nonce一样吗？](#26-block%E4%B8%AD%E7%9A%84nonce%E8%B7%9Ftransaction%E4%B8%AD%E7%9A%84nonce%E4%B8%80%E6%A0%B7%E5%90%97)
+        - [27. Dapp报错 ChainIdMismatch {expected: 1029, got: 1}](#27-dapp%E6%8A%A5%E9%94%99-chainidmismatch-expected-1029-got-1)
+        - [28. 主网跟测试网的chaindId是多少？怎么查询](#28-%E4%B8%BB%E7%BD%91%E8%B7%9F%E6%B5%8B%E8%AF%95%E7%BD%91%E7%9A%84chaindid%E6%98%AF%E5%A4%9A%E5%B0%91%E6%80%8E%E4%B9%88%E6%9F%A5%E8%AF%A2)
+        - [29. conflux有随机数预言机吗？](#29-conflux%E6%9C%89%E9%9A%8F%E6%9C%BA%E6%95%B0%E9%A2%84%E8%A8%80%E6%9C%BA%E5%90%97)
+        - [30. portal不支持导入助记词?](#30-portal%E4%B8%8D%E6%94%AF%E6%8C%81%E5%AF%BC%E5%85%A5%E5%8A%A9%E8%AE%B0%E8%AF%8D)
+        - [31. 怎么查看自己运行节点的bootnode数据？](#31-%E6%80%8E%E4%B9%88%E6%9F%A5%E7%9C%8B%E8%87%AA%E5%B7%B1%E8%BF%90%E8%A1%8C%E8%8A%82%E7%82%B9%E7%9A%84bootnode%E6%95%B0%E6%8D%AE)
+        - [32. 合约中如何区分是在conflux链上](#32-%E5%90%88%E7%BA%A6%E4%B8%AD%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%86%E6%98%AF%E5%9C%A8conflux%E9%93%BE%E4%B8%8A)
+        - [33. 交易不打包的情况有哪些？](#33-%E4%BA%A4%E6%98%93%E4%B8%8D%E6%89%93%E5%8C%85%E7%9A%84%E6%83%85%E5%86%B5%E6%9C%89%E5%93%AA%E4%BA%9B)
+        - [34. 怎么看每笔交易的实际扣费？](#34-%E6%80%8E%E4%B9%88%E7%9C%8B%E6%AF%8F%E7%AC%94%E4%BA%A4%E6%98%93%E7%9A%84%E5%AE%9E%E9%99%85%E6%89%A3%E8%B4%B9)
+        - [35. confluxPortal 0.5.6 钱包账号间转cfx，几个小时了现在还在待处理，怎么办？](#35-confluxportal-056-%E9%92%B1%E5%8C%85%E8%B4%A6%E5%8F%B7%E9%97%B4%E8%BD%ACcfx%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%E4%BA%86%E7%8E%B0%E5%9C%A8%E8%BF%98%E5%9C%A8%E5%BE%85%E5%A4%84%E7%90%86%E6%80%8E%E4%B9%88%E5%8A%9E)
+        - [36. Transaction的epochHeight和TransactionReceipt中的epochNumber一样吗？](#36-transaction%E7%9A%84epochheight%E5%92%8Ctransactionreceipt%E4%B8%AD%E7%9A%84epochnumber%E4%B8%80%E6%A0%B7%E5%90%97)
+        - [37. 怎么判断一个块是不是某个矿工挖出来的？conflux块的第一比交易也是coinbase交易，和bitcoin一样的吗？](#37-%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%9D%97%E6%98%AF%E4%B8%8D%E6%98%AF%E6%9F%90%E4%B8%AA%E7%9F%BF%E5%B7%A5%E6%8C%96%E5%87%BA%E6%9D%A5%E7%9A%84conflux%E5%9D%97%E7%9A%84%E7%AC%AC%E4%B8%80%E6%AF%94%E4%BA%A4%E6%98%93%E4%B9%9F%E6%98%AFcoinbase%E4%BA%A4%E6%98%93%E5%92%8Cbitcoin%E4%B8%80%E6%A0%B7%E7%9A%84%E5%90%97)
+        - [38. `0x2952a64d3afa6d39310c4928860abcd6bc097342dcc1b271b52f7809fd63f228`这笔交易在主网的显示的是合约创建，但是返回的字段contractCreated 却为null，这个时候怎么获取这个合约的地址呢?](#38-0x2952a64d3afa6d39310c4928860abcd6bc097342dcc1b271b52f7809fd63f228%E8%BF%99%E7%AC%94%E4%BA%A4%E6%98%93%E5%9C%A8%E4%B8%BB%E7%BD%91%E7%9A%84%E6%98%BE%E7%A4%BA%E7%9A%84%E6%98%AF%E5%90%88%E7%BA%A6%E5%88%9B%E5%BB%BA%E4%BD%86%E6%98%AF%E8%BF%94%E5%9B%9E%E7%9A%84%E5%AD%97%E6%AE%B5contractcreated-%E5%8D%B4%E4%B8%BAnull%E8%BF%99%E4%B8%AA%E6%97%B6%E5%80%99%E6%80%8E%E4%B9%88%E8%8E%B7%E5%8F%96%E8%BF%99%E4%B8%AA%E5%90%88%E7%BA%A6%E7%9A%84%E5%9C%B0%E5%9D%80%E5%91%A2)
+        - [39. full node 跟 archive node 有什么区别？](#39-full-node-%E8%B7%9F-archive-node-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB)
+        - [40. 如何查看交易失败原因？](#40-%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E4%BA%A4%E6%98%93%E5%A4%B1%E8%B4%A5%E5%8E%9F%E5%9B%A0)
+        - [41. tx revert 有哪些情况?](#41-tx-revert-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%83%85%E5%86%B5)
+        - [42. 这个错误什么意思？`Failed imported to deferred pool: Tx with same nonce already inserted. To replace it, you need to specify a gas price > 20000000000`](#42-%E8%BF%99%E4%B8%AA%E9%94%99%E8%AF%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9Dfailed-imported-to-deferred-pool-tx-with-same-nonce-already-inserted-to-replace-it-you-need-to-specify-a-gas-price--20000000000)
+        - [43. js-conflux-sdk里面有没有能解析tx里面data数据的方法？](#43-js-conflux-sdk%E9%87%8C%E9%9D%A2%E6%9C%89%E6%B2%A1%E6%9C%89%E8%83%BD%E8%A7%A3%E6%9E%90tx%E9%87%8C%E9%9D%A2data%E6%95%B0%E6%8D%AE%E7%9A%84%E6%96%B9%E6%B3%95)
+        - [44. js-conflux-sdk中的Conflux类的logger除了用console，可以用别的吗？](#44-js-conflux-sdk%E4%B8%AD%E7%9A%84conflux%E7%B1%BB%E7%9A%84logger%E9%99%A4%E4%BA%86%E7%94%A8console%E5%8F%AF%E4%BB%A5%E7%94%A8%E5%88%AB%E7%9A%84%E5%90%97)
+        - [45. 用上代付合约，是意味着所有用户操作合约，不管是调用合约的哪个方法，都是按照一个统一的标准来支付的么？](#45-%E7%94%A8%E4%B8%8A%E4%BB%A3%E4%BB%98%E5%90%88%E7%BA%A6%E6%98%AF%E6%84%8F%E5%91%B3%E7%9D%80%E6%89%80%E6%9C%89%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E5%90%88%E7%BA%A6%E4%B8%8D%E7%AE%A1%E6%98%AF%E8%B0%83%E7%94%A8%E5%90%88%E7%BA%A6%E7%9A%84%E5%93%AA%E4%B8%AA%E6%96%B9%E6%B3%95%E9%83%BD%E6%98%AF%E6%8C%89%E7%85%A7%E4%B8%80%E4%B8%AA%E7%BB%9F%E4%B8%80%E7%9A%84%E6%A0%87%E5%87%86%E6%9D%A5%E6%94%AF%E4%BB%98%E7%9A%84%E4%B9%88)
+        - [46. 那一旦给合约设置了代付，是不是所有的方法都是使用代付的余额的？有方式指定某个方法跳过代付么？](#46-%E9%82%A3%E4%B8%80%E6%97%A6%E7%BB%99%E5%90%88%E7%BA%A6%E8%AE%BE%E7%BD%AE%E4%BA%86%E4%BB%A3%E4%BB%98%E6%98%AF%E4%B8%8D%E6%98%AF%E6%89%80%E6%9C%89%E7%9A%84%E6%96%B9%E6%B3%95%E9%83%BD%E6%98%AF%E4%BD%BF%E7%94%A8%E4%BB%A3%E4%BB%98%E7%9A%84%E4%BD%99%E9%A2%9D%E7%9A%84%E6%9C%89%E6%96%B9%E5%BC%8F%E6%8C%87%E5%AE%9A%E6%9F%90%E4%B8%AA%E6%96%B9%E6%B3%95%E8%B7%B3%E8%BF%87%E4%BB%A3%E4%BB%98%E4%B9%88)
+        - [47. conflux代付模式有相关资料吗](#47-conflux%E4%BB%A3%E4%BB%98%E6%A8%A1%E5%BC%8F%E6%9C%89%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99%E5%90%97)
+        - [48. windows 10系统安装conflux-studio跑不起来](#48-windows-10%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85conflux-studio%E8%B7%91%E4%B8%8D%E8%B5%B7%E6%9D%A5)
+        - [49. ERC20/ERC777 在Conflux网络中还是这样称呼吗？](#49-erc20erc777-%E5%9C%A8conflux%E7%BD%91%E7%BB%9C%E4%B8%AD%E8%BF%98%E6%98%AF%E8%BF%99%E6%A0%B7%E7%A7%B0%E5%91%BC%E5%90%97)
+        - [50. 主网及测试网官方节点的websocket服务端口是哪些？](#50-%E4%B8%BB%E7%BD%91%E5%8F%8A%E6%B5%8B%E8%AF%95%E7%BD%91%E5%AE%98%E6%96%B9%E8%8A%82%E7%82%B9%E7%9A%84websocket%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%A3%E6%98%AF%E5%93%AA%E4%BA%9B)
+        - [51. `docker pull confluxchain/conflux-rust` 时提示 "no such file" 怎么解决](#51-docker-pull-confluxchainconflux-rust-%E6%97%B6%E6%8F%90%E7%A4%BA-no-such-file-%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3)
+        - [52. 我们在用钱包转账的时候，要求输入设置的密码，然后就转账成功了。这里为什么使用对称加密而不是私钥呢？](#52-%E6%88%91%E4%BB%AC%E5%9C%A8%E7%94%A8%E9%92%B1%E5%8C%85%E8%BD%AC%E8%B4%A6%E7%9A%84%E6%97%B6%E5%80%99%E8%A6%81%E6%B1%82%E8%BE%93%E5%85%A5%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%AF%86%E7%A0%81%E7%84%B6%E5%90%8E%E5%B0%B1%E8%BD%AC%E8%B4%A6%E6%88%90%E5%8A%9F%E4%BA%86%E8%BF%99%E9%87%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E8%80%8C%E4%B8%8D%E6%98%AF%E7%A7%81%E9%92%A5%E5%91%A2)
+        - [53. 区块高度是什么？](#53-%E5%8C%BA%E5%9D%97%E9%AB%98%E5%BA%A6%E6%98%AF%E4%BB%80%E4%B9%88)
+        - [54. 交易签名是什麼？](#54-%E4%BA%A4%E6%98%93%E7%AD%BE%E5%90%8D%E6%98%AF%E4%BB%80%E9%BA%BC)
+        - [55. conflux系统中计量单位及单位转换关系？](#55-conflux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E8%AE%A1%E9%87%8F%E5%8D%95%E4%BD%8D%E5%8F%8A%E5%8D%95%E4%BD%8D%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB)
+        - [56. estimateGasAndColletral报错“Can not estimate: transaction execution failed, all gas will be charged (execution error: VmError(BadInstruction { instruction: 169 }))”](#56-estimategasandcolletral%E6%8A%A5%E9%94%99can-not-estimate-transaction-execution-failed-all-gas-will-be-charged-execution-error-vmerrorbadinstruction--instruction-169-)
+        - [57. 开发者如何启动一个节点](#57-%E5%BC%80%E5%8F%91%E8%80%85%E5%A6%82%E4%BD%95%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9)
+        - [58. 发送交易前需要注意什么？](#58-%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93%E5%89%8D%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BB%80%E4%B9%88)
+        - [59. 区块有几种状态，顺序是什么样的？](#59-%E5%8C%BA%E5%9D%97%E6%9C%89%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81%E9%A1%BA%E5%BA%8F%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # 社区FAQ
 
 ##### 1. 普通交易的storageLimit，epochHeight 这2个字段需要关注吗？
@@ -123,7 +189,7 @@ portal刚安装完成是可以导入助记词的，如果已经有助记词了�
 ##### 33. 交易不打包的情况有哪些？
 以下条件不满足时会导致不打包：
 1. balance需要满足： balance >= value + gas * gasprice + storagelimit/1024
-2. nonce必须是连续的，同一账户只有当nonce低交易打包后才会打包nonce高的交易
+2. nonce必须是连续的，同一账户只有当nonce低的交易打包后才会打包nonce高的交易
 
 ##### 34. 怎么看每笔交易的实际扣费？
 transaction receipt 的 gasFee
