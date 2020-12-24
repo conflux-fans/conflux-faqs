@@ -55,3 +55,8 @@
 ### 为什么交易一直不被打包 ？
 
 ### 为什么交易执行失败 ？
+
+
+### 发送交易的常见错误有哪些?
+
+1. code = -32015, message = Estimation isn't accurate: transaction is reverted. Execution output , data =0xxxx

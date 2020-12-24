@@ -11,3 +11,4 @@
 3. [Sending transaction FAQs](./sending-tx-faq.md)
 4. Portal FAQs
 5. Run node FAQs
+6. [Common community faqs](./community-faq.md)
