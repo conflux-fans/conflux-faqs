@@ -126,8 +126,43 @@ curl -X POST --data '{"jsonrpc":"2.0","method":"tx_inspect_pending","params":["0
 ##### 16. cfx有查询算力的api吗？
 https://www.confluxscan.io/v1/plot?interval=514&limit=10
 
+##### 16. 什么是pivot chain switch
+pivot chain 指 pivot block 根据 block hash 相连形成的链；当某一个epoch 的非pivot block B 的子树 比 之前的 pivot block A 的子树更重时，B 变为该epoch的 pivot block， 这就是pivot chain switch。
 ##### 17. 如何判断发生了pivot chain switch？
+当 pivot chain old 变换成 pivot chain new 时，latest mined epoch number将会是一个不大于上次获取的 latest mined epoch number的值。
 
+如下图所示，上一时刻的latest epoch为10，这一时刻latest epoch为9，表示epoch 9的pivot block从9A变为9B， piovt chain switch发生。
+```
+[1]···[8]---[9A]---[10A] pivot chain old
+        \
+          \
+            [9B] pivot chain new
+```
+
+**开发者如何监听？**
+1. full node(archive node) 开启 websockt rpc 服务
+2. 通过rpc_subscribeEpoch 订阅 latest mined epoch 事件
+3. 等待latest mined epoch B 与 上次获取的 latest mined epoch A 比较
+4. 如果B<=A，表示发生 pivot chain switch
+5. go step 3
+
+**开发者如何同步区块及交易状态?**
+
+如果本地需要保持block及transaction信息的及时性及准确性，则需要在 pivot chain switch 发生时（假设 latest mined epoch number 从 A 变为 B，且 B<=A ）：
+
+- 假设latest mined epoch number 为A 时获取的 latest state epoch number 为 A'
+- 假设latest mined epoch number 为B 时获取的 latest state epoch number 为 B'
+
+1. 如果B>A', 更新 (A',B'] （即这种情况不会影响到已执行的区块及交易，正常处理）
+```
+-----A'------A
+--------B'-B
+```
+2. 如果B<=A', 删除 [B,A’]间数据即可
+```
+-----A'------A
+----B
+```
 
 ##### 18. 存储抵押费是什么，怎么计算？ 比如1kb存储需要多少drip？
 存储抵押指在合约新增存储占用时，需要根据新增存储抵押相应的cfx。对于每一个存储条目，最后向该条目写入的账户称为该存储条目的所有者。存储抵押费用会在该存储释放后返还给该所有者。
