@@ -1,5 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [如何发送交易?](#%E5%A6%82%E4%BD%95%E5%8F%91%E9%80%81%E4%BA%A4%E6%98%93)
@@ -95,10 +93,23 @@ receipt 是交易的回执信息，直译过来是`票据`, 通过 receipt 可�
 交易通过 RPC 提交之后会经历几个状态： 等待打包->打包->执行->确认 [具体参看](https://developer.conflux-chain.org/docs/conflux-doc/docs/send_transaction#track-my-transaction)
 
 ### 为什么交易发送失败 ？
+交易发送失败有以下几种原因：
+
+1. 使用了一个旧的 nonce
+2. 使用当前的 nonce，但有笔同样 nonce 的交易卡在交易池中
+3. 
 
 ### 为什么交易一直不被打包 ？
+如果交易一直不打包，大概率是如下两种情况： nonce 设置不对；余额不够
 
 ### 为什么交易执行失败 ？
+交易执行大概分为以下几种情况：
+* Vm reverted, Reason provided by the contract: ’xxxxx‘  合约执行失败，且合约返回了详细信息
+* VmError(ExceedStorageLimit)  存储上限指定的不够
+* NotEnoughCash { required: 22625000000010862646, got: 22062499999972687418, actual_gas_cost: 10862646, max_storage_limit_cost: 22625000000000000000 }  余额不够
+* VmError(OutOfGas)  燃气费指定的不够
+* VmError(BadInstruction { instruction: 238 }) 合约部署失败
+* Vm reverted, 合约执行失败, 但合约没有返回详细信息
 
 
 ### 发送交易的常见错误有哪些?
