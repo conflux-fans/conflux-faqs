@@ -1,8 +1,5 @@
 # conflux-faqs
 
-[public RPCs](./public-rpcs.md)
-
-
 ## FAQs
 
 1. Conflux Protocol FAQs
