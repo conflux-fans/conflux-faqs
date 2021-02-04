@@ -8,4 +8,4 @@
 4. Portal FAQs
 5. [Run node FAQs](./how-to-run-node.md)
 6. [Common community faqs](./community-faq.md)
-7. [Shuttleflow FAQs]
+7. [Shuttleflow FAQs]()
