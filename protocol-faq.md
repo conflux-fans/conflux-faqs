@@ -1,3 +1,7 @@
+### 《Conflux 协议规范》中有大量的 Conflux 协议细节，这使得它不易读，对于想大致了解 Conflux 技术架构的读者也不够友好。有没有相关解读文章？
+[Conflux 研究院 | 《Conflux 协议规范》（黄皮书）导读](https://juejin.cn/post/6896346384018964493)
+
+
 ### Conflux 相比以太坊有什么优势？
 TPS高，手续费低，支持代付，兼容 Solidity
 
