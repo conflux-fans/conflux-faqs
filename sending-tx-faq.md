@@ -22,22 +22,20 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
-
 ### 如何发送交易?
-发送交易最简单的方式是使用钱包比如：Conflux Portal，DappBirds 等，点击发送直接设置金额即可。
+
+发送交易最简单的方式是使用钱包比如：Conflux Portal 等，点击发送直接设置金额即可。
 如果你是一个开发者，你可以使用 Conflux SDK（JS，Java，Go） 自行构建交易，然后通过 node RPC 发送到链上。
 
-
 ### 发送交易时的 `燃气费`，`存储费` 指的是什么？
+
 燃气费是交易执行的手续费, 矿工打包并执行交易需要收取一定的费用，其计算方式为 gasFee = gasPrice * gasUsed。
 交易的执行可能会占用新的存储空间，此部分空间的占用不需要支付费用，但需要为存储的使用抵押一部分 CFX，随着存储的释放，抵押也会归还。
 存储费指的的存储占用抵押的 CFX，每占用 1024 字节需要抵押 1 CFX。
 
-
 ### 使用 SDK 发送交易，需要指定什么信息（参数）
-使用 JS-SDK 发送交易，如果只进行简单的 CFX 转账，只需指定 `from`(从哪个账户转出), `to`（发到哪个账户）, `value`（发送数量，单位是Drip）即可。
 
+使用 JS-SDK 发送交易，如果只进行简单的 CFX 转账，只需指定 `from`(从哪个账户转出), `to`（发到哪个账户）, `value`（发送数量，单位是Drip）即可。
 
 ### 除了 from, to, value 一笔 TX 还包含哪些信息?
 
@@ -54,63 +52,78 @@
 
 
 ### 如何获取正确的 nonce?
+
 通过RPC `cfx_getNextNonce` 可以获取某个账户的下一个可用的nonce, 使用过的nonce 无法再次使用， 如果使用一个比当前nonce 大的值，则交易不会被打包
 
 ### nonce 什么时候回加 1？ 交易执行失败 nonce 会加 1 么？为什么交易发送了，nonce 没有变化？
 
+交易执行之后 nonce 会加一，不管执行成功还是失败，都会加一。
+
+交易发送后，通过 `cfx_getNextNonce` 查询 nonce 不变，是因为交易还未执行，这时候交易可能处于交易池中未被打包，或者刚刚打包处于 defer 状态，等待执行。
+
 ### 交易实际使用的燃气费如何计算 ？
+
 在 scan 的交易详情页可以看到 gas 的使用量，gas 价格，gas 费用等信息，其本质是通过 `cfx_getTransactionReceipt` 获取的
 gasFee = gasCharged * gasPrice, 但 gasCharged 不一定和 gasUsed 相等
 在 conflux 有一个规则，gas 用于指定一笔交易所能使用的燃气上限，一定会大于燃气的实际使用值(gasUsed), 对于多的部分，最多只会回退 1/4: 如果多的部分小于gasLimit 的 1/4 全部退回，但如果大于 1/4 
 则只回退 1/4, 因此发送交易时尽量指定准确的 `gas` 值 
 
-
 ### 如何释放存储抵押 ？
+
 释放存储则抵押自动被回退，比如ERC20 token 的余额从非 0变为 0，则会回退抵押，比如销毁某个合约，则会回退所有地址跟合约交互所产生的抵押
 
 ### 为什么跟合约交互，交易消耗了燃气费，但我的余额没有变？
+
 Conflux 网络有赞助者机制，如果某个合约有赞助者，则跟合约交互的燃气存储费用由赞助者出
 
 ### 如果要批量发送交易，如何管理 nonce ？
+
 批量发送交易时，需要手动管理 nonce，每发送一笔交易，nonce 手动加一，此种情况，对于失败并且nonce未使用的交易，需要手动调整 tx 参数重新发送.
 因此批量发送交易时需要保留所有 tx 的 hash 并自动监控交易的状态
 
 ### 如何知道一笔交易所会使用的 gas 和 storage ?
+
 RPC `cfx_estimateGasAndCollateral` 可以用于预估一笔交易所需要使用的 gas 和 storage 数量，但预估结果并非 100% 准确，对于返回的 gas 可以相应手动调大一些比如乘上 `1.3` 
 
 ### 怎么知道一笔交易执行成功了 ？
+
 查看交易 的 `status` 字段 或 receipt 的 `outcomeStatus` 字段可以判断交易是否成功，0 表示成功 1 表示失败
 
 ### 怎么判断一笔交易是否安全，是否被确认?
+
 如果一笔交易所在 epoch 的 epochNumber 小于当前的 confirmed epochNuber 则认为安全了.
 也可以通过 RPC `cfx_getConfirmationRiskByHash` 获取交易所在 block 的 confirmationRisk，如果得到的值小于 1e-8 则认为是安全的
 
 ### `receipt` 是什么, 都包含什么信息 ?
+
 receipt 是交易的回执信息，直译过来是`票据`, 通过 receipt 可以知道交易执行的一些情况比如是否成功，是否创建合约，gas 花费情况，tx 执行产生的 eventLog等
 具体[参看](https://developer.conflux-chain.org/docs/conflux-doc/docs/json_rpc#cfx_gettransactionreceipt)
 
 ### 交易的状态是如何发生变化的？
+
 交易通过 RPC 提交之后会经历几个状态： 等待打包->打包->执行->确认 [具体参看](https://developer.conflux-chain.org/docs/conflux-doc/docs/send_transaction#track-my-transaction)
 
 ### 为什么交易发送失败 ？
+
 交易发送失败有以下几种原因：
 
 1. 使用了一个旧的 nonce
 2. 使用当前的 nonce，但有笔同样 nonce 的交易卡在交易池中
-3. 
 
 ### 为什么交易一直不被打包 ？
+
 如果交易一直不打包，大概率是如下两种情况： nonce 设置不对；余额不够
 
 ### 为什么交易执行失败 ？
+
 交易执行大概分为以下几种情况：
+
 * Vm reverted, Reason provided by the contract: ’xxxxx‘  合约执行失败，且合约返回了详细信息
 * VmError(ExceedStorageLimit)  存储上限指定的不够
 * NotEnoughCash { required: 22625000000010862646, got: 22062499999972687418, actual_gas_cost: 10862646, max_storage_limit_cost: 22625000000000000000 }  余额不够
 * VmError(OutOfGas)  燃气费指定的不够
 * VmError(BadInstruction { instruction: 238 }) 合约部署失败
 * Vm reverted, 合约执行失败, 但合约没有返回详细信息
-
 
 ### 发送交易的常见错误有哪些?
 
